@@ -11,11 +11,11 @@ HTML::FormHandlerX::Form::Contact - An HTML::FormHandler contact form.
 
 =head1 VERSION
 
-Version 0.01
+Version 0.04
 
 =cut
 
-our $VERSION = '0.01';
+our $VERSION = '0.04';
 
 $VERSION = eval $VERSION;
 
@@ -27,12 +27,12 @@ From a usability perspective in form design, it is advised to only ask for the m
 
  use HTML::FormHandlerX::Form::Contact;
 
- my $form = HTML::FormHandlerX::Form::Contact->new( activate => [ qw( name email subject message ) ] );
+ my $form = HTML::FormHandlerX::Form::Contact->new( active => [ qw( name email subject message ) ] );
 
  $form->process( params => { name    => $name,
                              email   => $email,
                              subject => $subject,
-                             message => $subject,
+                             message => $message,
                            } );
 
  if ( $form->validated )
@@ -106,7 +106,7 @@ sub validate_telephone
 {
     my ( $self, $field ) = @_;
     
-    if ( $self->value !~ /\d/ )
+    if ( $field->value !~ /\d/ )
     {
         $field->add_error( "Your telephone number doesn't contain any digits." );
     }
@@ -144,12 +144,16 @@ has_field message => ( type         => 'TextArea',
 
  $form->field('submit');
 
+The value of the submit button will be 'Send Message' by default.
+
 =cut
 
 has_field submit => ( type         => 'Submit',
                       value        => 'Send Message',
                       wrapper_attr => { id => 'field-submit', },
                     );
+
+=head2 Instance Methods
 
 =head3 html_attributes
 

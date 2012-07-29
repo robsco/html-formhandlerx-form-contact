@@ -15,4 +15,11 @@ eval "use Pod::Coverage $min_pc";
 plan skip_all => "Pod::Coverage $min_pc required for testing POD coverage"
     if $@;
 
-all_pod_coverage_ok();
+pod_coverage_ok(
+    "HTML::FormHandlerX::Form::Contact",
+    { also_private => [ 'validate_telephone' ], },
+    "POD Coverage ok"
+    );
+    
+
+done_testing();
